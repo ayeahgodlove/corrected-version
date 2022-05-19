@@ -1,12 +1,19 @@
-import React from 'react'
+import React from 'react';
+import { CardGroup, Container, Button, Card } from "react-bootstrap";
 
 export class SongCard extends React.Component {
   render(){
       const {song, onSongClick } = this.props;
-    return <div> 
-            <img src={song.ImagePath} alt="Cover" />
-            <h2>{song.Title}</h2>
-            <button onClick={() => { onSongClick(song) }  }>Click Me</button>
-             </div> 
+    return <Container>
+              <CardGroup>
+                  <Card id="movie-card">
+                      <a><Card.Img variant="top" src={song.ImagePath} /></a>
+                      <Card.Body>
+                          <Card.Title id="card-title">{song.Title}</Card.Title>
+                          <Button id="card-button" onClick={() => onSongClick(song)} variant="link">Show more</Button>
+                      </Card.Body>
+                  </Card>
+              </CardGroup>
+           </Container>
   }
 }

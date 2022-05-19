@@ -1,22 +1,30 @@
-import React from 'react'
+import React from 'react';
+import { Card, Col, Container, Row, Button } from "react-bootstrap";
 
 export class SongView extends React.Component {
   render(){
     const {song} = this.props;
     
-    return <div className="song-view">
-    <div className="song-poster">
-      <img src={song.ImagePath} />
-    </div>
-    <div className="song-title">
-      <span className="label">Title: </span>
-      <span className="value">{song.Title}</span>
-    </div>
-    <div className="song-description">
-      <span className="label">Description: </span>
-      <span className="value">{song.Description}</span>
-    </div>
-
-   </div>
+    return (<Container>
+      <Row>
+          <Col>
+              <Card id="movie-view">
+                  <Card.Body>
+                  <Card.Img variant="top" src={song.ImagePath} />
+                  <Card.Title>{song.Title}</Card.Title>
+                  <Card.Text>
+                      {song.Description}</Card.Text>
+                  <Card.Text>
+                      Director: {song.Director.Name}</Card.Text>
+                  <Card.Text>
+                      Genre: {song.Genre.Name}</Card.Text>
+                  
+                  </Card.Body>
+              </Card>
+              <Button onClick={() => { console.log('pushed'); }}>Back</Button>
+              <Button onClick={() => {}}>Add to favorites</Button>
+          </Col>
+      </Row>
+  </Container>)
   }
 }

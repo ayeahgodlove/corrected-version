@@ -3,6 +3,7 @@ import { SongCard } from "../song-card/song-card";
 import { SongView } from "../song-view/song-view";
 import { LoginView } from '../login/login-view';
 import axios from 'axios';
+import { Col, Row, Container } from "react-bootstrap";
 
 export class MainView extends React.Component {
 
@@ -45,14 +46,26 @@ export class MainView extends React.Component {
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
     if (selectedSong) return <SongView song={selectedSong} />;
     if (songs.length === 0){
-        return <div className="main-view">The list is empty!</div>;
+        return (<Container>
+          <Row>
+            <div className="main-view">The list is empty!</div>
+          </Row>
+        </Container>)
+        
+  
     } else {
-        return (
-            <div className="main-view">
-            {songs.map((song) => {
-              return <SongCard key={song._id} song={song} onSongClick={(newSelectedSong) => { this.setState({selectedSong: newSelectedSong}) }}/>;
-            })}
-            </div>
+        return (<Container>
+          <Row>
+
+            <Col md={4}>
+              {songs.map((song) => {
+                return <SongCard key={song._id} song={song} onSongClick={(newSelectedSong) => { this.setState({selectedSong: newSelectedSong}) }}/>;
+              })}
+            </Col>
+         
+          </Row>
+        </Container>
+            
     );
   }};
 
