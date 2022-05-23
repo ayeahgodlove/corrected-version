@@ -22,11 +22,15 @@ export class MainView extends React.Component {
     }
 
     componentDidMount(){
-      axios.get('https://young-shore-18643.herokuapp.com//songs')
+      axios.get('https://young-shore-18643.herokuapp.com/songs')
         .then(response => {
+          if (response.data.length === 0) {
+            return
+          }
           this.setState({
            songs: response.data
           });
+          console.log(response.data);
         })
         .catch(error => {
           console.log(error);
