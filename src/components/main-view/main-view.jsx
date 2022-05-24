@@ -2,6 +2,7 @@ import React from 'react';
 import { SongCard } from "../song-card/song-card";
 import { SongView } from "../song-view/song-view";
 import { LoginView } from '../login/login-view';
+import { RegisterView } from "../register-view/register-view";
 import axios from 'axios';
 import { Col, Row, Container } from "react-bootstrap";
 import { bool } from 'prop-types';
@@ -62,6 +63,7 @@ export class MainView extends React.Component {
                           onLoggedIn={user => this.onLoggedIn(user)} 
                           onRegister={bool => this.onRegister(bool)}
                       />;
+    if(isRegister) { return <RegisterView /> }
     if (selectedSong) return <SongView song={selectedSong} />;
     if (songs.length === 0){
         return (<Container>
