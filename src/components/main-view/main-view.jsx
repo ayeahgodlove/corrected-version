@@ -4,6 +4,7 @@ import { SongView } from "../song-view/song-view";
 import { LoginView } from '../login/login-view';
 import axios from 'axios';
 import { Col, Row, Container } from "react-bootstrap";
+import { bool } from 'prop-types';
 
 export class MainView extends React.Component {
 
@@ -17,11 +18,14 @@ export class MainView extends React.Component {
             { _id: 3, Title: 'Gladiator', Description: 'desc3...', ImagePath: '...'}
           ],
           selectedSong: null,
-          user: null
+          user: null,
+          isRegister: false
         }
     }
 
     componentDidMount(){
+      
+
       axios.get('https://young-shore-18643.herokuapp.com/songs')
         .then(response => {
           if (response.data.length === 0) {
@@ -34,7 +38,7 @@ export class MainView extends React.Component {
         })
         .catch(error => {
           console.log(error);
-        });
+      });
     }
 
     onLoggedIn(user) {
@@ -43,11 +47,21 @@ export class MainView extends React.Component {
       });
     }
 
+    onRegister(isRegister) {
+      this.setState({
+        isRegister
+      });
+
+    }
+
   render() {
 
-    const {songs, selectedSong, user} = this.state;
+    const {songs, selectedSong, user, isRegister} = this.state;
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+    if (!user) return <LoginView 
+                          onLoggedIn={user => this.onLoggedIn(user)} 
+                          onRegister={bool => this.onRegister(bool)}
+                      />;
     if (selectedSong) return <SongView song={selectedSong} />;
     if (songs.length === 0){
         return (<Container>
