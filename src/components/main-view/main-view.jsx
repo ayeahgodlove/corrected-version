@@ -75,47 +75,56 @@ export class MainView extends React.Component {
         />}/>
         <Route exact path="/" render={<MainView/>}/>
         <Route exact path="/songs/:songId" render={<SongView song={selectedSong} />}/>
-    <Route exact path="/genres/:name" render={<GenreView/>}/>
+    <Route exact path="/genres/:name" render={ ({match}) => {
+        if (songs.length === 0 ) {return <div className="main-view" />}
+
+        return  <GenreView genre={songs.find(m => m.Genre.Name === match.params.name).Genre}/>
+    }}/>
+    
+    
+    
+ 
     <Route exact path="/artist/:name" render={<ArtistView/>}/>
     <Route exact path="/profil" render={<UserProfilView/>}/>
    </div>
 </Router>
-    /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-    if (!user) return( <LoginView 
-      onLoggedIn={user => this.onLoggedIn(user)} 
-      onRegister={bool => this.onRegister(bool)}
+  //   /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
+  //   if (!user) return( <LoginView 
+  //     onLoggedIn={user => this.onLoggedIn(user)} 
+  //     onRegister={bool => this.onRegister(bool)}
   
-    />)
+  //   />)
     
       
     
     
   
 
-    if(!isRegister) { return <RegisterView /> }
-    if (selectedSong) return <SongView song={selectedSong} />;
-    if (songs.length === 0){
-        return (<Container>
-          <Row>
-            <div className="main-view">The list is empty!</div>
-          </Row>
-        </Container>)
+  //   if(!isRegister) { return <RegisterView /> }
+  //   if (selectedSong) return <SongView song={selectedSong} />;
+  //   if (songs.length === 0){
+  //       return (<Container>
+  //         <Row>
+  //           <div className="main-view">The list is empty!</div>
+  //         </Row>
+  //       </Container>)
         
   
-    } else {
-        return (<Container>
-          <Row>
+  //   } else {
+  //       return (<Container>
+  //         <Row>
 
-            <Col md={4}>
-              {songs.map((song) => {
-                return <SongCard key={song._id} song={song} onSongClick={(newSelectedSong) => { this.setState({selectedSong: newSelectedSong}) }}/>;
-              })}
-            </Col>
+  //           <Col md={4}>
+  //             {songs.map((song) => {
+  //               return <SongCard key={song._id} song={song} onSongClick={(newSelectedSong) => { this.setState({selectedSong: newSelectedSong}) }}/>;
+  //             })}
+  //           </Col>
          
-          </Row>
-        </Container>
+  //         </Row>
+  //       </Container>
             
-    );
-  }};
+  //   );
+  // }
+};
 
 }

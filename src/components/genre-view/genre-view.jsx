@@ -1,11 +1,12 @@
 import React from 'react';
 import { Card, Col, Container, Row, Button } from "react-bootstrap";
 
-export class GenreView extends React.Component {
+export default class GenreView extends React.Component {
   render(){
     const {genre} = this.props.match.params.name;
-    
-    return (<Container>
+    return (
+        
+    <Container>
       <Row>
           <Col>
               <Card>
