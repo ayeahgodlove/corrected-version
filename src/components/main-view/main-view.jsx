@@ -64,28 +64,50 @@ export class MainView extends React.Component {
 
     const {songs, selectedSong, user, isRegister} = this.state;
 
-    <Router>
+   return <Router>
    <div className="main-view">
-        <Route exact path="/login" render={<LoginView 
-          onLoggedIn={user => this.onLoggedIn(user)} 
-          onRegister={bool => this.onRegister(bool)}
-        />}/>
-        <Route exact path="/register" render={<RegisterView 
-          onRegister={bool => this.onRegister(bool)}
-        />}/>
-        <Route exact path="/" render={<MainView/>}/>
-        <Route exact path="/songs/:songId" render={<SongView song={selectedSong} />}/>
-    <Route exact path="/genres/:name" render={ ({match}) => {
-        if (songs.length === 0 ) {return <div className="main-view" />}
+       
 
-        return  <GenreView genre={songs.find(m => m.Genre.Name === match.params.name).Genre}/>
-    }}/>
-    
-    
-    
- 
-    <Route exact path="/artist/:name" render={<ArtistView/>}/>
-    <Route exact path="/profil" render={<UserProfilView/>}/>
+        <Route exact path="/login" render={()=>(
+          <LoginView 
+            onLoggedIn={user => this.onLoggedIn(user)} 
+            onRegister={bool => this.onRegister(bool)}
+          />
+        )}/>
+
+        <Route exact path="/register" render={()=>(
+          <RegisterView 
+            onRegister={bool => this.onRegister(bool)}
+          />
+        )}/>
+
+        <Route exact path="/" render={()=>(
+          songs.map( (song) => {
+            return <SongCard 
+                          key={song._id} 
+                          song={song} 
+                          onSongClick={(newSelectedSong) => { 
+                                  this.setState({selectedSong: newSelectedSong})
+                                }}/>})
+        )}/>
+
+        <Route path="/songs/:songId" render={()=>(
+          <SongView song={selectedSong} />
+        )}/>     
+
+        <Route path="/genres/:name" render={({match})=>{
+           if (songs.length === 0 ) {return <div className="main-view" />}
+           return  <GenreView genre={songs.find(m => m.Genre.Name === match.params.name).Genre}/>
+        }}/>
+
+        <Route path="/artist/:name" render={()=>(
+          <ArtistView/>
+        )}/>
+
+        <Route exact path="/profil" render={()=>(
+          <UserProfilView/>
+        )}/>
+
    </div>
 </Router>
   //   /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
