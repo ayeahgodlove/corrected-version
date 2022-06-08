@@ -14,8 +14,8 @@ export class SongView extends React.Component {
                 <Card.Img variant="top" src={song.ImagePath} />
                 <Card.Title>{song.Title}</Card.Title>
                 <Card.Text>{song.Description}</Card.Text>
-                <Card.Text>Director: {song.Director.Name}</Card.Text>
-                <Card.Text>Genre: {song.Genre.Name}</Card.Text>
+                {/* <Card.Text>Director: {song.Director.Name}</Card.Text>
+                <Card.Text>Genre: {song.Genre.Name}</Card.Text> */}
               </Card.Body>
             </Card>
             <Button
